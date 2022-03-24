@@ -15,14 +15,14 @@ using UnityEngine.UI;
 public class TitleBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject title;
-    private RectTransform _titleRectTransform;
+    private static RectTransform _titleRectTransform;
     
     private void OnEnable()
     {
         InitTitle();
         FadeIn();
     }
-
+    
     private void InitTitle()
     {
         _titleRectTransform = title.GetComponent<RectTransform>();
@@ -34,9 +34,12 @@ public class TitleBehaviour : MonoBehaviour
 
     }
 
-    public void FadeOut()
+    public static void FadeOut()
     {
-        
+        _titleRectTransform.DOScale(new Vector3(600, 600,0), 1.5f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            SceneLoaderController.LoadScene("Scene2");
+        });
     }
 
 }
