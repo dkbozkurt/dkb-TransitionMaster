@@ -37,6 +37,7 @@ namespace Game.Scripts
         }
         private void FadeIn()
         {
+            _cam.DOColor(Color.black, _delayTime).SetEase(Ease.Linear);
             _titleRectTransform.DOScale(new Vector3(5, 5,0), _delayTime).SetEase(Ease.Linear);
         }
 
@@ -46,7 +47,6 @@ namespace Game.Scripts
             _titleTMP.DOFade(0, _delayTime).SetEase(Ease.Linear);
             _titleRectTransform.DOScale(new Vector3(600, 600,0), _delayTime).SetEase(Ease.Linear).OnComplete(() =>
             {
-                // Camera background changes
                 Camera.main.backgroundColor = Color.white;
                 SceneLoaderController.UnLoadScene(SceneName.Scene1.ToString(),SceneLoaderController.scene1Loaded);
             });

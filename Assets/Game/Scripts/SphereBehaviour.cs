@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// 
@@ -17,10 +18,7 @@ namespace Game.Scripts
         [SerializeField] private float sphereRotationSpeed;
         private void Update()
         {
-            if (RotatingSpheresBehaviour.canRotate)
-            {
-                RotateSphere();
-            }
+            if(RotatingSpheresBehaviour.canRotate) RotateSphere();
         }
 
         private void RotateSphere()
@@ -31,8 +29,12 @@ namespace Game.Scripts
         private void OnMouseDown()
         {
             RotatingSpheresBehaviour.canRotate = false;
-            RotatingSpheresBehaviour.SphereFocus(gameObject);
+            gameObject.tag = "SelectedPlanet";
+            RotatingSpheresBehaviour.endSceneTwo = true;
+            RotatingSpheresBehaviour.ClickedSphereFocus(this.gameObject);
+            //gameObject.tag = "Untagged";
         }
+        
     }
     
 }

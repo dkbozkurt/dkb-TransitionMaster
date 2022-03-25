@@ -60,6 +60,7 @@ namespace Game.Scripts
         
         public void SceneDecider(string sceneCode)
         {
+            Debug.Log("lastScene:" + _lastLoadedScene + "sceneCode: " + sceneCode);
             if(_lastLoadedScene != sceneCode)
             {
                 LastSceneFadeOutOperations(_lastLoadedScene);
@@ -92,7 +93,8 @@ namespace Game.Scripts
                 progress.completed += (op) =>
                 {
                     SceneLoaderSetter(sceneName,true);
-                    Debug.Log("Level Loaded!");
+                    _lastLoadedScene = sceneName;
+                    Debug.Log(sceneName+" Loaded!");
                 };
             }
         }
@@ -123,8 +125,8 @@ namespace Game.Scripts
                 progress.completed += (op) =>
                 {
                     SceneLoaderSetter(sceneName,false);
-                    _lastLoadedScene = sceneName;
-                    Debug.Log("Level Unloaded!");
+                    //_lastLoadedScene = sceneName;
+                    Debug.Log(sceneName +" Unloaded!");
                 };
             }
             
@@ -144,11 +146,13 @@ namespace Game.Scripts
             switch (sceneToFadeOut)
             {
                 case "Scene1":
+                    //Debug.Log("Fade Out of Scene 1");
                     TitleBehaviour.FadeOut();
                     break;
                 
                 case "Scene2":
                     Debug.Log("Fade Out of Scene 2");
+                    RotatingSpheresBehaviour.NonSelectedFocus();
                     break;
                 
                 case "Scene3":
