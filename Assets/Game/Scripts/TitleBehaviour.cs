@@ -12,34 +12,39 @@ using UnityEngine.UI;
 /// 
 /// </summary>
 
-public class TitleBehaviour : MonoBehaviour
+namespace Game.Scripts
 {
-    [SerializeField] private GameObject title;
-    private static RectTransform _titleRectTransform;
+    public class TitleBehaviour : MonoBehaviour
+    {
+        [SerializeField] private GameObject title;
+        private static RectTransform _titleRectTransform;
     
-    private void OnEnable()
-    {
-        InitTitle();
-        FadeIn();
-    }
-    
-    private void InitTitle()
-    {
-        _titleRectTransform = title.GetComponent<RectTransform>();
-        _titleRectTransform.localScale = Vector3.zero;
-    }
-    private void FadeIn()
-    {
-        _titleRectTransform.DOScale(new Vector3(5, 5,0), 1.5f).SetEase(Ease.Linear);
-
-    }
-
-    public static void FadeOut()
-    {
-        _titleRectTransform.DOScale(new Vector3(600, 600,0), 1.5f).SetEase(Ease.Linear).OnComplete(() =>
+        private void OnEnable()
         {
-            SceneLoaderController.LoadScene("Scene2");
-        });
-    }
+            InitTitle();
+            FadeIn();
+        }
+    
+        private void InitTitle()
+        {
+            _titleRectTransform = title.GetComponent<RectTransform>();
+            _titleRectTransform.localScale = Vector3.zero;
+        }
+        private void FadeIn()
+        {
+            _titleRectTransform.DOScale(new Vector3(5, 5,0), 1.5f).SetEase(Ease.Linear);
+        }
 
+        public static void FadeOut()
+        {
+            _titleRectTransform.DOScale(new Vector3(600, 600,0), 1.5f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                // Camera background changes
+                
+                SceneLoaderController.UnLoadScene(SceneName.Scene1.ToString(),SceneLoaderController.scene1Loaded);
+            });
+            
+        }
+
+    }
 }
