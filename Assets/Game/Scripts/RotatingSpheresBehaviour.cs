@@ -66,8 +66,9 @@ namespace Game.Scripts
         {
             clickedSphere.transform.DOMove(Vector3.zero, 0.7f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.scene2Loaded);
                 SceneLoaderController.LoadScene(SceneName.Scene3.ToString(),SceneLoaderController.scene3Loaded);
+                // Assagidakini sahne 3 ün enablesinde unload yap.
+                SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.scene2Loaded);
             });
 
         }
