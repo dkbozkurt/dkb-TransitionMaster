@@ -99,10 +99,7 @@ namespace Game.Scripts
                         LoadScene(sceneCode,scene3Loaded);
                         break;
                 }
-                
-                
-                Debug.Log(_lastLoadedScene + "loast Loaded scene is");
-                
+
             }
         }
         

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,8 +17,10 @@ namespace Game.Scripts
 {
     public class TitleBehaviour : MonoBehaviour
     {
-        [SerializeField] private GameObject title;
         private static RectTransform _titleRectTransform;
+        private static TextMeshProUGUI _titleTMP;
+        private static Camera _cam;
+        private static float _delayTime = 0.7f;
     
         private void OnEnable()
         {
@@ -27,8 +30,10 @@ namespace Game.Scripts
     
         private void InitTitle()
         {
-            _titleRectTransform = title.GetComponent<RectTransform>();
+            _titleRectTransform = GetComponent<RectTransform>();
             _titleRectTransform.localScale = Vector3.zero;
+            _titleTMP = GetComponent<TextMeshProUGUI>();
+            _cam = Camera.main;
         }
         private void FadeIn()
         {
@@ -37,10 +42,14 @@ namespace Game.Scripts
 
         public static void FadeOut()
         {
-            _titleRectTransform.DOScale(new Vector3(600, 600,0), 1.5f).SetEase(Ease.Linear).OnComplete(() =>
+            var sequence = DOTween.Sequence();
+
+            _cam.DOColor(Color.white, _delayTime).SetEase(Ease.Linear);
+            _titleTMP.DOFade(0, _delayTime).SetEase(Ease.Linear);
+            _titleRectTransform.DOScale(new Vector3(600, 600,0), _delayTime).SetEase(Ease.Linear).OnComplete(() =>
             {
                 // Camera background changes
-                
+                Camera.main.backgroundColor = Color.white;
                 SceneLoaderController.UnLoadScene(SceneName.Scene1.ToString(),SceneLoaderController.scene1Loaded);
             });
             
