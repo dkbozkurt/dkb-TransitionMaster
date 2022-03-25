@@ -71,14 +71,13 @@ namespace Game.Scripts
             });
 
         }
-
-        public static void NonSelectedFocus()
+        
+        public static void NonSelectedFadeOut()
         {
-            var autoSelectedPlanet =GameObject.Find("BigSphere");
-            autoSelectedPlanet.tag = "SelectedPlanet";
-            endSceneTwo = true;
-            SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.scene2Loaded);
-
+            galaxyTransform.DOScale(Vector3.zero,0.7f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.scene2Loaded);    
+            });
         }
         
     }

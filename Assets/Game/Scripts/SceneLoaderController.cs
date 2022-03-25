@@ -151,8 +151,8 @@ namespace Game.Scripts
                     break;
                 
                 case "Scene2":
-                    Debug.Log("Fade Out of Scene 2");
-                    RotatingSpheresBehaviour.NonSelectedFocus();
+                    //Debug.Log("Fade Out of Scene 2");
+                    RotatingSpheresBehaviour.NonSelectedFadeOut();
                     break;
                 
                 case "Scene3":
