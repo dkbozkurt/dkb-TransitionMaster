@@ -24,11 +24,11 @@ namespace Game.Scripts
     
         private void OnEnable()
         {
-            InitTitle();
+            AssignInitValues();
             FadeIn();
         }
     
-        private void InitTitle()
+        private void AssignInitValues()
         {
             _titleRectTransform = GetComponent<RectTransform>();
             _titleRectTransform.localScale = Vector3.zero;
@@ -37,13 +37,11 @@ namespace Game.Scripts
         }
         private void FadeIn()
         {
-            _titleRectTransform.DOScale(new Vector3(5, 5,0), 1.5f).SetEase(Ease.Linear);
+            _titleRectTransform.DOScale(new Vector3(5, 5,0), _delayTime).SetEase(Ease.Linear);
         }
 
         public static void FadeOut()
         {
-            var sequence = DOTween.Sequence();
-
             _cam.DOColor(Color.white, _delayTime).SetEase(Ease.Linear);
             _titleTMP.DOFade(0, _delayTime).SetEase(Ease.Linear);
             _titleRectTransform.DOScale(new Vector3(600, 600,0), _delayTime).SetEase(Ease.Linear).OnComplete(() =>

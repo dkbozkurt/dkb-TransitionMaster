@@ -42,19 +42,7 @@ namespace Game.Scripts
     
         private void Update()
         {
-            
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                TitleBehaviour.FadeOut();
-            }
-    
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                LoadScene(sceneName.ToString(),scene2Loaded);
-            }
-
-            #region Accessing levels by using keyboard numbers.
-
+           
             if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
             {
                 SceneDecider(SceneName.Scene1.ToString());
@@ -67,14 +55,7 @@ namespace Game.Scripts
             {
                 SceneDecider(SceneName.Scene3.ToString());
             }
-
-            #endregion
-
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                Debug.Log("last loaded scene is " + _lastLoadedScene);
-            }
-
+            
         }
         
         public void SceneDecider(string sceneCode)
