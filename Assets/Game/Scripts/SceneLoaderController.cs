@@ -62,6 +62,11 @@ namespace Game.Scripts
             {
                 SceneDecider(SceneName.Scene3.ToString());
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
             
         }
         
