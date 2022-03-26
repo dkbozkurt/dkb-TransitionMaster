@@ -75,6 +75,7 @@ namespace Game.Scripts
         
         public static void NonSelectedFadeOut()
         {
+            AdditionalObjectBehaviour.sphereScale = new Vector3(4, 4, 4);
             galaxyTransform.DOScale(Vector3.zero,0.7f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.scene2Loaded);    

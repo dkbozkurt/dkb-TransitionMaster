@@ -28,11 +28,11 @@ namespace Game.Scripts
 
         private void OnMouseDown()
         {
+            AdditionalObjectBehaviour.sphereScale = gameObject.transform.lossyScale;
             RotatingSpheresBehaviour.canRotate = false;
             gameObject.tag = "SelectedPlanet";
             RotatingSpheresBehaviour.endSceneTwo = true;
             RotatingSpheresBehaviour.ClickedSphereFocus(this.gameObject);
-            //gameObject.tag = "Untagged";
         }
         
     }
