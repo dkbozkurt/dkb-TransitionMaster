@@ -67,7 +67,7 @@ namespace Game.Scripts
         
         public static void NonSelectedFadeOut()
         {
-            AdditionalObjectBehaviour.FocusSphereScale = new Vector3(4, 4, 4);
+            LastSceneController.FocusSphereScale = new Vector3(4, 4, 4);
             _galaxyTransform.DOScale(Vector3.zero,0.7f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.Scene2Loaded);    

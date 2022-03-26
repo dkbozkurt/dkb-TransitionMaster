@@ -28,7 +28,7 @@ namespace Game.Scripts
 
         private void OnMouseDown()
         {
-            AdditionalObjectBehaviour.FocusSphereScale = gameObject.transform.lossyScale;
+            LastSceneController.FocusSphereScale = gameObject.transform.lossyScale;
 
             RotatingSpheresBehaviour.CanRotate = false;
             gameObject.tag = "SelectedPlanet";
