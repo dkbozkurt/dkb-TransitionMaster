@@ -33,6 +33,9 @@ namespace Game.Scripts
             RotatingSpheresBehaviour.CanRotate = false;
             gameObject.tag = "SelectedPlanet";
             RotatingSpheresBehaviour.EndSceneTwo = true;
+
+            ShowSceneNumberBehaviour.TrasitionStickMove("Scene3");
+            ShowSceneNumberBehaviour.PreviousLevelButtonShrink("Scene2");
             
             RotatingSpheresBehaviour.ClickedSphereFocus(this.gameObject);
         }

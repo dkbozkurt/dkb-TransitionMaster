@@ -84,6 +84,10 @@ namespace Game.Scripts
             else
             {
                 SceneLoaderController.LoadScene(SceneName.Scene1.ToString(),SceneLoaderController.Scene1Loaded);
+                
+                ShowSceneNumberBehaviour.TrasitionStickMove("Scene1");
+                ShowSceneNumberBehaviour.PreviousLevelButtonShrink("Scene3");
+                
                 FadeOut();
             }
         }

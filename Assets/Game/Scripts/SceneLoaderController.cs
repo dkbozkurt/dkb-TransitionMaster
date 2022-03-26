@@ -28,7 +28,7 @@ namespace Game.Scripts
         public static string _lastLoadedScene;
 
         private bool _isMainSceneLoaded;
-        
+
         private void OnEnable()
         {
             Scene1Loaded = false;
@@ -87,6 +87,7 @@ namespace Game.Scripts
                         break;
                 }
                 ShowSceneNumberBehaviour.TrasitionStickMove(sceneCode);
+                ShowSceneNumberBehaviour.PreviousLevelButtonShrink(_lastLoadedScene);
 
             }
         }
