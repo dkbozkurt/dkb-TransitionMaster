@@ -44,10 +44,11 @@ namespace Game.Scripts
 
             if (!IsMainSceneLoaded)
             {
+                IsMainSceneLoaded = true;
                 sceneName = SceneName.Scene1;
                 LoadScene(sceneName.ToString(),Scene1Loaded);
                 ShowSceneNumberBehaviour.TrasitionStickMove(sceneName.ToString());
-                IsMainSceneLoaded = true;
+                ShowSceneNumberBehaviour.ButtonsAreReady(true);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
@@ -72,6 +73,7 @@ namespace Game.Scripts
         
         public void SceneDecider(string sceneCode)
         {
+            if (!ShowSceneNumberBehaviour.ButtonsAreActive) return;
             
             if(_lastLoadedScene != sceneCode)
             {
@@ -102,11 +104,13 @@ namespace Game.Scripts
         {
             if (!sceneIsLoaded)
             {
+                ShowSceneNumberBehaviour.ButtonsAreReady(false);
                 var progress = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
                 progress.completed += (op) =>
                 {
                     SceneLoaderSetter(sceneName,true);
                     _lastLoadedScene = sceneName;
+
                     Debug.Log(sceneName+" Loaded!");
                 };
             }
@@ -137,6 +141,7 @@ namespace Game.Scripts
                 var progress = SceneManager.UnloadSceneAsync(sceneName);
                 progress.completed += (op) =>
                 {
+                    ShowSceneNumberBehaviour.ButtonsAreReady(true);
                     SceneLoaderSetter(sceneName,false);
                     Debug.Log(sceneName +" Unloaded!");
                 };

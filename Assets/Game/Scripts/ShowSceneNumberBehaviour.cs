@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Scripts
 {
@@ -11,7 +12,9 @@ namespace Game.Scripts
     {
         public static List<GameObject> Buttons { get; } = new List<GameObject>();
         private static GameObject TransitionStick { get ; set; }
-        
+
+        public static bool ButtonsAreActive { get; set; }
+
         private void OnEnable()
         {
             AssignInitValues();
@@ -19,6 +22,8 @@ namespace Game.Scripts
 
         private void AssignInitValues()
         {
+            ButtonsAreReady(false);
+            
             for (int i = 1; i <= 3; i++)
             {
                 Buttons.Add(transform.GetChild(i).gameObject);
@@ -46,6 +51,16 @@ namespace Game.Scripts
         {
             int sceneNum = int.Parse(sceneName.Substring(sceneName.Length - 1));
             return sceneNum;
+        }
+
+        public static void ButtonsAreReady(bool buttonSituation)
+        {
+            ButtonsAreActive = buttonSituation;
+            foreach (GameObject child in Buttons)
+            {
+                child.GetComponent<Button>().enabled =buttonSituation;
+            }
+            
         }
         
         
