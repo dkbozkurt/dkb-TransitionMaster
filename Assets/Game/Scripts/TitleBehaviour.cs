@@ -1,17 +1,10 @@
 // Dogukan Kaan Bozkurt
 //		github.com/dkbozkurt
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-/// <summary>
-/// 
-/// </summary>
 
 namespace Game.Scripts
 {
@@ -47,8 +40,8 @@ namespace Game.Scripts
             _titleTMP.DOFade(0, _delayTime).SetEase(Ease.Linear);
             _titleRectTransform.DOScale(new Vector3(600, 600,0), _delayTime).SetEase(Ease.Linear).OnComplete(() =>
             {
-                Camera.main.backgroundColor = Color.white;
-                SceneLoaderController.UnLoadScene(SceneName.Scene1.ToString(),SceneLoaderController.scene1Loaded);
+                if (Camera.main is { }) Camera.main.backgroundColor = Color.white;
+                SceneLoaderController.UnLoadScene(SceneName.Scene1.ToString(),SceneLoaderController.Scene1Loaded);
             });
             
         }

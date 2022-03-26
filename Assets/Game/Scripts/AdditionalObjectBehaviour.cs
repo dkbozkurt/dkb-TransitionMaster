@@ -1,21 +1,16 @@
 // Dogukan Kaan Bozkurt
 //		github.com/dkbozkurt
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-
-/// <summary>
-/// 
-/// </summary>
 
 namespace Game.Scripts
 {
     public class AdditionalObjectBehaviour : MonoBehaviour
     {
-        public static Vector3 sphereScale;
-        [SerializeField] private GameObject focusSphere;
+        public static Vector3 FocusSphereScale;
+        [SerializeField] private GameObject sceneThreeSphere;
 
         private void OnEnable()
         {
@@ -27,14 +22,15 @@ namespace Game.Scripts
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                Debug.Log("sphereScale: "+ sphereScale);
+                Debug.Log("sphereScale: "+ FocusSphereScale);
             }
         }
 
         private void AssignInitValues()
         {
-            //focusSphere.transform.localScale = Vector3.zero;
-            focusSphere.transform.localScale = sphereScale;
+            sceneThreeSphere.transform.localScale = Vector3.zero;
+            WaitForScene2Exit(0.55f);
+
         }
 
         private void FadeIn()
@@ -42,14 +38,19 @@ namespace Game.Scripts
             
         }
 
-        private void WaitForTime(float t)
+        public  void SphereFadeIn()
+        {
+            sceneThreeSphere.GetComponent<MeshRenderer>().enabled = true;
+        }
+        
+        private void WaitForScene2Exit(float t)
         {
 
             StartCoroutine(Do());
             IEnumerator Do()
             {
                 yield return new WaitForSeconds(t);
-                
+                sceneThreeSphere.transform.DOScale(FocusSphereScale, 0.15f).SetEase(Ease.Linear);
             }
         }
     }

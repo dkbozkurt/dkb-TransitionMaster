@@ -1,25 +1,18 @@
 // Dogukan Kaan Bozkurt
 //		github.com/dkbozkurt
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 using DG.Tweening;
-
-/// <summary>
-/// 
-/// </summary>
 
 namespace Game.Scripts
 {
     public class RotatingSpheresBehaviour : MonoBehaviour
     {
-        public static bool canRotate;
-        private static Transform galaxyTransform;
+        public static bool CanRotate;
+        private static Transform _galaxyTransform;
         [SerializeField] private List<GameObject> planets = new List<GameObject>();
-        public static bool endSceneTwo;
+        public static bool EndSceneTwo;
 
         private void OnEnable()
         {
@@ -29,7 +22,7 @@ namespace Game.Scripts
 
         private void Update()
         {
-            if (endSceneTwo)
+            if (EndSceneTwo)
             {
                 FadeOutUnselectedSpheres();
             }
@@ -37,10 +30,10 @@ namespace Game.Scripts
 
         private void AssignInitValues()
         {
-            canRotate = true;
-            endSceneTwo = false;
+            CanRotate = true;
+            EndSceneTwo = false;
             transform.localScale = Vector3.zero;
-            galaxyTransform = GetComponent<Transform>();
+            _galaxyTransform = GetComponent<Transform>();
         }
         
         private void FadeIn()
@@ -50,12 +43,12 @@ namespace Game.Scripts
 
         private void FadeOutUnselectedSpheres()
         {
-            endSceneTwo = false;
+            EndSceneTwo = false;
             foreach (GameObject child in planets)
             {
                 child.transform.parent = null;
                 
-                if (child.tag != "SelectedPlanet")
+                if (!child.CompareTag("SelectedPlanet"))
                 {
                     child.transform.DOScale(Vector3.zero, 0.7f).SetEase(Ease.Linear);
                 }
@@ -64,21 +57,20 @@ namespace Game.Scripts
 
         public static void ClickedSphereFocus(GameObject clickedSphere)
         {
+            SceneLoaderController.LoadScene(SceneName.Scene3.ToString(),SceneLoaderController.Scene3Loaded);
             clickedSphere.transform.DOMove(Vector3.zero, 0.7f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                SceneLoaderController.LoadScene(SceneName.Scene3.ToString(),SceneLoaderController.scene3Loaded);
-                // Assagidakini sahne 3 ün enablesinde unload yap.
-                SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.scene2Loaded);
+                SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.Scene2Loaded);
             });
 
         }
         
         public static void NonSelectedFadeOut()
         {
-            AdditionalObjectBehaviour.sphereScale = new Vector3(4, 4, 4);
-            galaxyTransform.DOScale(Vector3.zero,0.7f).SetEase(Ease.Linear).OnComplete(() =>
+            AdditionalObjectBehaviour.FocusSphereScale = new Vector3(4, 4, 4);
+            _galaxyTransform.DOScale(Vector3.zero,0.7f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.scene2Loaded);    
+                SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.Scene2Loaded);    
             });
         }
         

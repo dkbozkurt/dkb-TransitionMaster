@@ -18,7 +18,7 @@ namespace Game.Scripts
         [SerializeField] private float sphereRotationSpeed;
         private void Update()
         {
-            if(RotatingSpheresBehaviour.canRotate) RotateSphere();
+            if(RotatingSpheresBehaviour.CanRotate) RotateSphere();
         }
 
         private void RotateSphere()
@@ -28,10 +28,12 @@ namespace Game.Scripts
 
         private void OnMouseDown()
         {
-            AdditionalObjectBehaviour.sphereScale = gameObject.transform.lossyScale;
-            RotatingSpheresBehaviour.canRotate = false;
+            AdditionalObjectBehaviour.FocusSphereScale = gameObject.transform.lossyScale;
+
+            RotatingSpheresBehaviour.CanRotate = false;
             gameObject.tag = "SelectedPlanet";
-            RotatingSpheresBehaviour.endSceneTwo = true;
+            RotatingSpheresBehaviour.EndSceneTwo = true;
+            
             RotatingSpheresBehaviour.ClickedSphereFocus(this.gameObject);
         }
         

@@ -1,16 +1,9 @@
 // Dogukan Kaan Bozkurt
 //		github.com/dkbozkurt
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-/// <summary>
-/// 
-/// </summary>
-
 namespace Game.Scripts
 { 
     public enum SceneName
@@ -26,9 +19,9 @@ namespace Game.Scripts
 
         #region Booleans to check is the stated scene is loaded
         
-        public static bool scene1Loaded = false;
-        public static bool scene2Loaded = false;
-        public static bool scene3Loaded = false;
+        public static bool Scene1Loaded;
+        public static bool Scene2Loaded;
+        public static bool Scene3Loaded;
 
         #endregion
       
@@ -36,7 +29,11 @@ namespace Game.Scripts
         
         private void OnEnable()
         {
-            LoadScene(sceneName.ToString(),scene1Loaded);
+            Scene1Loaded = false;
+            Scene2Loaded = false;
+            Scene3Loaded = false;
+            
+            LoadScene(sceneName.ToString(),Scene1Loaded);
             _lastLoadedScene = sceneName.ToString();
         }
     
@@ -68,17 +65,17 @@ namespace Game.Scripts
                 {
                     case "Scene1":
                         sceneName = SceneName.Scene1;
-                        LoadScene(sceneCode, scene1Loaded);
+                        LoadScene(sceneCode, Scene1Loaded);
 
                         break;
                     case "Scene2":
                         sceneName = SceneName.Scene2;
-                        LoadScene(sceneCode,scene2Loaded);
+                        LoadScene(sceneCode,Scene2Loaded);
                         break;
                 
                     case "Scene3":
                         sceneName = SceneName.Scene3;
-                        LoadScene(sceneCode,scene3Loaded);
+                        LoadScene(sceneCode,Scene3Loaded);
                         break;
                 }
 
@@ -134,11 +131,11 @@ namespace Game.Scripts
 
         private static void SceneLoaderSetter(string sceneName,bool status)
         {
-            if (sceneName == SceneName.Scene1.ToString()) scene1Loaded = status;
+            if (sceneName == SceneName.Scene1.ToString()) Scene1Loaded = status;
             
-            if (sceneName == SceneName.Scene2.ToString()) scene2Loaded = status;
+            if (sceneName == SceneName.Scene2.ToString()) Scene2Loaded = status;
             
-            if (sceneName == SceneName.Scene3.ToString()) scene3Loaded = status;
+            if (sceneName == SceneName.Scene3.ToString()) Scene3Loaded = status;
         }
 
         private static void LastSceneFadeOutOperations(string sceneToFadeOut)
