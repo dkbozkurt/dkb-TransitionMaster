@@ -5,15 +5,16 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-
 namespace Game.Scripts
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
+    [RequireComponent(typeof(RectTransform))]
     public class TitleBehaviour : MonoBehaviour
     {
         private static RectTransform _titleRectTransform;
         private static TextMeshProUGUI _titleTMP;
         private static Camera _cam;
-        private static float _delayTime = 0.7f;
+        private static readonly float DelayTime = 0.7f;
     
         private void OnEnable()
         {
@@ -30,15 +31,15 @@ namespace Game.Scripts
         }
         private void FadeIn()
         {
-            _cam.DOColor(Color.black, _delayTime).SetEase(Ease.Linear);
-            _titleRectTransform.DOScale(new Vector3(5, 5,0), _delayTime).SetEase(Ease.Linear);
+            _cam.DOColor(Color.black, DelayTime).SetEase(Ease.Linear);
+            _titleRectTransform.DOScale(new Vector3(5, 5,0), DelayTime).SetEase(Ease.Linear);
         }
 
         public static void FadeOut()
         {
-            _cam.DOColor(Color.white, _delayTime).SetEase(Ease.Linear);
-            _titleTMP.DOFade(0, _delayTime).SetEase(Ease.Linear);
-            _titleRectTransform.DOScale(new Vector3(600, 600,0), _delayTime).SetEase(Ease.Linear).OnComplete(() =>
+            _cam.DOColor(Color.white, DelayTime).SetEase(Ease.Linear);
+            _titleTMP.DOFade(0, DelayTime).SetEase(Ease.Linear);
+            _titleRectTransform.DOScale(new Vector3(600, 600,0), DelayTime).SetEase(Ease.Linear).OnComplete(() =>
             {
                 if (Camera.main is { }) Camera.main.backgroundColor = Color.white;
                 SceneLoaderController.UnLoadScene(SceneName.Scene1.ToString(),SceneLoaderController.Scene1Loaded);

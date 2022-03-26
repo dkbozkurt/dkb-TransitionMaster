@@ -9,10 +9,11 @@ namespace Game.Scripts
 {
     public class RotatingSpheresBehaviour : MonoBehaviour
     {
-        public static bool CanRotate;
+        public static bool CanRotate { get; set; }
+
         private static Transform _galaxyTransform;
         [SerializeField] private List<GameObject> planets = new List<GameObject>();
-        public static bool EndSceneTwo;
+        public static bool EndSceneTwo { get; set; }
 
         private void OnEnable()
         {

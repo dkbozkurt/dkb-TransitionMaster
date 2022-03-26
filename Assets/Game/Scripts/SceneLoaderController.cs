@@ -15,19 +15,20 @@ namespace Game.Scripts
     
     public class SceneLoaderController : MonoBehaviour
     {
+        public static readonly float TransitionDelayTime = 0.7f;
         public SceneName sceneName;
 
         #region Booleans to check is the stated scene is loaded
-        
-        public static bool Scene1Loaded;
-        public static bool Scene2Loaded;
-        public static bool Scene3Loaded;
+
+        public static bool Scene1Loaded { get; private set; }
+        public static bool Scene2Loaded { get; private set; }
+        public static bool Scene3Loaded { get; private set; }
 
         #endregion
-      
-        public static string _lastLoadedScene;
 
-        private bool _isMainSceneLoaded;
+        private static string _lastLoadedScene;
+
+        private bool IsMainSceneLoaded { get; set; }
 
         private void OnEnable()
         {
@@ -35,18 +36,18 @@ namespace Game.Scripts
             Scene2Loaded = false;
             Scene3Loaded = false;
 
-            _isMainSceneLoaded = false;
+            IsMainSceneLoaded = false;
         }
     
         private void Update()
         {
 
-            if (!_isMainSceneLoaded)
+            if (!IsMainSceneLoaded)
             {
                 sceneName = SceneName.Scene1;
                 LoadScene(sceneName.ToString(),Scene1Loaded);
                 ShowSceneNumberBehaviour.TrasitionStickMove(sceneName.ToString());
-                _isMainSceneLoaded = true;
+                IsMainSceneLoaded = true;
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
@@ -66,7 +67,7 @@ namespace Game.Scripts
         
         public void SceneDecider(string sceneCode)
         {
-            Debug.Log("lastScene:" + _lastLoadedScene + "sceneCode: " + sceneCode);
+            
             if(_lastLoadedScene != sceneCode)
             {
                 LastSceneFadeOutOperations(_lastLoadedScene);
@@ -108,10 +109,10 @@ namespace Game.Scripts
     
         #region Load level with coroutine
     
-        private IEnumerator LoadSceneCoroutine(string sceneName)
+        private IEnumerator LoadSceneCoroutine(string scene)
         {
             
-            var progress = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            var progress = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
     
             while (!progress.isDone)
             {

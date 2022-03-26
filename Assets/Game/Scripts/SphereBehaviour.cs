@@ -1,18 +1,11 @@
 // Dogukan Kaan Bozkurt
 //		github.com/dkbozkurt
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-
-/// <summary>
-/// 
-/// </summary>
 
 namespace Game.Scripts
 {
+    [RequireComponent(typeof(Collider))]
     public class SphereBehaviour : MonoBehaviour
     {
         [SerializeField] private float sphereRotationSpeed;
@@ -36,7 +29,7 @@ namespace Game.Scripts
 
             ShowSceneNumberBehaviour.TrasitionStickMove("Scene3");
             ShowSceneNumberBehaviour.PreviousLevelButtonShrink("Scene2");
-            
+
             RotatingSpheresBehaviour.ClickedSphereFocus(this.gameObject);
         }
         

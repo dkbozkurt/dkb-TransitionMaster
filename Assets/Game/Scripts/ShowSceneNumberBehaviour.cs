@@ -9,23 +9,9 @@ namespace Game.Scripts
 {
     public class ShowSceneNumberBehaviour : MonoBehaviour
     {
-        private static List<GameObject> _buttons = new List<GameObject>();
-        private static GameObject _transitionStick;
-
-        public static GameObject TransitionStick
-        {
-            get => _transitionStick;
-            set => _transitionStick = value;
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                GetSceneNumber("Scene2");
-            }
-        }
-
+        public static List<GameObject> Buttons { get; } = new List<GameObject>();
+        private static GameObject TransitionStick { get ; set; }
+        
         private void OnEnable()
         {
             AssignInitValues();
@@ -35,25 +21,25 @@ namespace Game.Scripts
         {
             for (int i = 1; i <= 3; i++)
             {
-                _buttons.Add(transform.GetChild(i).gameObject);
+                Buttons.Add(transform.GetChild(i).gameObject);
             }
             
             TransitionStick = transform.GetChild(0).gameObject;
-            TransitionStick.transform.localPosition= _buttons[0].transform.localPosition;
+            TransitionStick.transform.localPosition= Buttons[0].transform.localPosition;
         }
 
         public static void TrasitionStickMove(string sceneName)
         {
-            TransitionStick.transform.DOMove(_buttons[GetSceneNumber(sceneName) - 1].transform.position, 0.5f)
+            TransitionStick.transform.DOMove(Buttons[GetSceneNumber(sceneName) - 1].transform.position, 0.5f)
                 .SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    _buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.7f, 0.2f).SetEase(Ease.Linear);
+                    Buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.7f, 0.2f).SetEase(Ease.Linear);
                 });
         }
 
         public static void PreviousLevelButtonShrink(string sceneName)
         {
-            _buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.5f, 0.3f).SetEase(Ease.Linear);
+            Buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.5f, 0.3f).SetEase(Ease.Linear);
         }
 
         private static int GetSceneNumber(string sceneName)
