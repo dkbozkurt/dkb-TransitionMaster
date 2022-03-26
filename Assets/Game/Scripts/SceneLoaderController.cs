@@ -26,20 +26,28 @@ namespace Game.Scripts
         #endregion
       
         private static string _lastLoadedScene;
+
+        private bool _isMainSceneLoaded;
         
         private void OnEnable()
         {
             Scene1Loaded = false;
             Scene2Loaded = false;
             Scene3Loaded = false;
-            
-            LoadScene(sceneName.ToString(),Scene1Loaded);
-            _lastLoadedScene = sceneName.ToString();
+
+            _isMainSceneLoaded = false;
         }
     
         private void Update()
         {
-           
+
+            if (!_isMainSceneLoaded)
+            {
+                sceneName = SceneName.Scene1;
+                LoadScene(sceneName.ToString(),Scene1Loaded);
+                _isMainSceneLoaded = true;
+            }
+
             if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
             {
                 SceneDecider(SceneName.Scene1.ToString());
