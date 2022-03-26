@@ -22,15 +22,7 @@ namespace Game.Scripts
             AssignInitValues();
             FadeIn();
         }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Debug.Log("sphereScale: "+ FocusSphereScale);
-            }
-        }
-
+        
         private void AssignInitValues()
         {
             _restartButton = transform.GetChild(2).GetChild(0).gameObject;
@@ -45,7 +37,7 @@ namespace Game.Scripts
 
         private void FadeIn()
         {
-            WaitForScene2Exit(SceneLoaderController.TransitionDelayTime*0.79f);
+            WaitForScene2Exit(SceneLoaderController.TransitionDelayTime*0.7f);
         }
         
         private void WaitForScene2Exit(float t)
