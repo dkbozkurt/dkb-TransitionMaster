@@ -25,7 +25,7 @@ namespace Game.Scripts
 
         #endregion
       
-        private static string _lastLoadedScene;
+        public static string _lastLoadedScene;
 
         private bool _isMainSceneLoaded;
         
@@ -45,6 +45,7 @@ namespace Game.Scripts
             {
                 sceneName = SceneName.Scene1;
                 LoadScene(sceneName.ToString(),Scene1Loaded);
+                ShowSceneNumberBehaviour.TrasitionStickMove(sceneName.ToString());
                 _isMainSceneLoaded = true;
             }
 
@@ -74,7 +75,6 @@ namespace Game.Scripts
                     case "Scene1":
                         sceneName = SceneName.Scene1;
                         LoadScene(sceneCode, Scene1Loaded);
-
                         break;
                     case "Scene2":
                         sceneName = SceneName.Scene2;
@@ -86,6 +86,7 @@ namespace Game.Scripts
                         LoadScene(sceneCode,Scene3Loaded);
                         break;
                 }
+                ShowSceneNumberBehaviour.TrasitionStickMove(sceneCode);
 
             }
         }
@@ -139,10 +140,11 @@ namespace Game.Scripts
         private static void SceneLoaderSetter(string sceneName,bool status)
         {
             if (sceneName == SceneName.Scene1.ToString()) Scene1Loaded = status;
-            
+
             if (sceneName == SceneName.Scene2.ToString()) Scene2Loaded = status;
             
             if (sceneName == SceneName.Scene3.ToString()) Scene3Loaded = status;
+            
         }
 
         private static void LastSceneFadeOutOperations(string sceneToFadeOut)
