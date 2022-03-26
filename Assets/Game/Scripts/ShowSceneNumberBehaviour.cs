@@ -30,16 +30,16 @@ namespace Game.Scripts
 
         public static void TrasitionStickMove(string sceneName)
         {
-            TransitionStick.transform.DOMove(Buttons[GetSceneNumber(sceneName) - 1].transform.position, 0.5f)
+            TransitionStick.transform.DOMove(Buttons[GetSceneNumber(sceneName) - 1].transform.position, SceneLoaderController.TransitionDelayTime*0.71f)
                 .SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    Buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.7f, 0.2f).SetEase(Ease.Linear);
+                    Buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.7f, SceneLoaderController.TransitionDelayTime*0.29f).SetEase(Ease.Linear);
                 });
         }
 
         public static void PreviousLevelButtonShrink(string sceneName)
         {
-            Buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.5f, 0.3f).SetEase(Ease.Linear);
+            Buttons[GetSceneNumber(sceneName) - 1].transform.DOScale(Vector3.one * 0.5f, SceneLoaderController.TransitionDelayTime*0.43f).SetEase(Ease.Linear);
         }
 
         private static int GetSceneNumber(string sceneName)

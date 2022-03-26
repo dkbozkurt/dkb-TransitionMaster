@@ -45,7 +45,7 @@ namespace Game.Scripts
 
         private void FadeIn()
         {
-            WaitForScene2Exit(0.55f);
+            WaitForScene2Exit(SceneLoaderController.TransitionDelayTime*0.79f);
         }
         
         private void WaitForScene2Exit(float t)
@@ -55,7 +55,7 @@ namespace Game.Scripts
             IEnumerator Do()
             {
                 yield return new WaitForSeconds(t);
-                _sceneThreeSphere.transform.DOScale(FocusSphereScale, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
+                _sceneThreeSphere.transform.DOScale(FocusSphereScale, SceneLoaderController.TransitionDelayTime*0.21f).SetEase(Ease.Linear).OnComplete(() =>
                 {
                     AdditionalObjectFades(true);
                 });
@@ -66,12 +66,12 @@ namespace Game.Scripts
         {
             if (fadeSituation)
             {
-                _additionalObject.transform.DOScale(Vector3.one*0.2f, 0.3f).SetEase(Ease.Flash).OnComplete(() =>
+                _additionalObject.transform.DOScale(Vector3.one*0.2f, SceneLoaderController.TransitionDelayTime*0.43f).SetEase(Ease.Flash).OnComplete(() =>
                 {
                     ButtonTrigger(true);
                 });
             }
-            else _additionalObject.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.Flash);
+            else _additionalObject.transform.DOScale(Vector3.zero, SceneLoaderController.TransitionDelayTime*0.71f).SetEase(Ease.Flash);
             
         }
 
@@ -79,7 +79,7 @@ namespace Game.Scripts
         {
             if (buttonSituation)
             {
-                _restartButtonTransform.DOScale(Vector3.one * 2, 0.2f).SetEase(Ease.InCubic);
+                _restartButtonTransform.DOScale(Vector3.one * 2, SceneLoaderController.TransitionDelayTime*0.29f).SetEase(Ease.InCubic);
             }
             else
             {
@@ -94,9 +94,9 @@ namespace Game.Scripts
 
         public static void FadeOut()
         {
-            _restartButtonTransform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.Linear);
-            _sceneThreeSphere.transform.DOScale(Vector3.zero, 0.7f).SetEase(Ease.Linear);
-            _additionalObject.transform.DOScale(Vector3.zero, 0.7f).SetEase(Ease.Linear).OnComplete(() =>
+            _restartButtonTransform.DOScale(Vector3.zero, SceneLoaderController.TransitionDelayTime*0.57f).SetEase(Ease.Linear);
+            _sceneThreeSphere.transform.DOScale(Vector3.zero, SceneLoaderController.TransitionDelayTime).SetEase(Ease.Linear);
+            _additionalObject.transform.DOScale(Vector3.zero, SceneLoaderController.TransitionDelayTime).SetEase(Ease.Linear).OnComplete(() =>
             {
                 SceneLoaderController.UnLoadScene(SceneName.Scene3.ToString(),SceneLoaderController.Scene3Loaded);
             });

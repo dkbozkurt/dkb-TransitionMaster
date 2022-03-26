@@ -39,7 +39,7 @@ namespace Game.Scripts
         
         private void FadeIn()
         {
-            transform.DOScale(Vector3.one, 0.7f);
+            transform.DOScale(Vector3.one, SceneLoaderController.TransitionDelayTime);
         }
 
         private void FadeOutUnselectedSpheres()
@@ -51,7 +51,7 @@ namespace Game.Scripts
                 
                 if (!child.CompareTag("SelectedPlanet"))
                 {
-                    child.transform.DOScale(Vector3.zero, 0.7f).SetEase(Ease.Linear);
+                    child.transform.DOScale(Vector3.zero, SceneLoaderController.TransitionDelayTime).SetEase(Ease.Linear);
                 }
             }
         }
@@ -59,7 +59,7 @@ namespace Game.Scripts
         public static void ClickedSphereFocus(GameObject clickedSphere)
         {
             SceneLoaderController.LoadScene(SceneName.Scene3.ToString(),SceneLoaderController.Scene3Loaded);
-            clickedSphere.transform.DOMove(Vector3.zero, 0.7f).SetEase(Ease.Linear).OnComplete(() =>
+            clickedSphere.transform.DOMove(Vector3.zero, SceneLoaderController.TransitionDelayTime).SetEase(Ease.Linear).OnComplete(() =>
             {
                 SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.Scene2Loaded);
             });
@@ -69,7 +69,7 @@ namespace Game.Scripts
         public static void NonSelectedFadeOut()
         {
             LastSceneController.FocusSphereScale = new Vector3(4, 4, 4);
-            _galaxyTransform.DOScale(Vector3.zero,0.7f).SetEase(Ease.Linear).OnComplete(() =>
+            _galaxyTransform.DOScale(Vector3.zero,SceneLoaderController.TransitionDelayTime).SetEase(Ease.Linear).OnComplete(() =>
             {
                 SceneLoaderController.UnLoadScene(SceneName.Scene2.ToString(),SceneLoaderController.Scene2Loaded);    
             });
