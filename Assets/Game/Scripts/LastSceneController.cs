@@ -9,7 +9,7 @@ namespace Game.Scripts
 {
     public class LastSceneController : MonoBehaviour
     {
-        public static Vector3 FocusSphereScale;
+        public static Vector3 FocusSphereScale = new Vector3(4,4,4);
         
         private static GameObject _sceneThreeSphere;
         private static GameObject _additionalObject;
