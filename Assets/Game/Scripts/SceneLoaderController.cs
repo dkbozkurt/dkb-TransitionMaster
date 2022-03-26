@@ -122,7 +122,6 @@ namespace Game.Scripts
                 progress.completed += (op) =>
                 {
                     SceneLoaderSetter(sceneName,false);
-                    //_lastLoadedScene = sceneName;
                     Debug.Log(sceneName +" Unloaded!");
                 };
             }
@@ -153,10 +152,10 @@ namespace Game.Scripts
                     break;
                 
                 case "Scene3":
-                    Debug.Log("Fade Out of Scene 3");
+                    //Debug.Log("Fade Out of Scene 3");
+                    LastSceneController.FadeOut();
                     break;
-                    
-                
+
             }
         }
 

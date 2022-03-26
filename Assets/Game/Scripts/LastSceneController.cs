@@ -11,10 +11,11 @@ namespace Game.Scripts
     {
         public static Vector3 FocusSphereScale;
         
-        [SerializeField] private GameObject sceneThreeSphere;
-        [SerializeField] private GameObject additionalObject;
-        [SerializeField] private GameObject restartButton;
-        private RectTransform _restartButtonTransform;
+        private static GameObject _sceneThreeSphere;
+        private static GameObject _additionalObject;
+        private static GameObject _restartButton;
+        
+        private static RectTransform _restartButtonTransform;
         
         private void OnEnable()
         {
@@ -32,11 +33,14 @@ namespace Game.Scripts
 
         private void AssignInitValues()
         {
-            _restartButtonTransform = restartButton.GetComponent<RectTransform>();
-            
+            _restartButton = transform.GetChild(2).GetChild(0).gameObject;
+            _restartButtonTransform = _restartButton.GetComponent<RectTransform>();
+            _sceneThreeSphere = transform.GetChild(0).gameObject;
+            _additionalObject = transform.GetChild(1).gameObject;
+
             _restartButtonTransform.transform.localScale =Vector3.zero;
-            sceneThreeSphere.transform.localScale = Vector3.zero;
-            additionalObject.transform.localScale = Vector3.zero;
+            _sceneThreeSphere.transform.localScale = Vector3.zero;
+            _additionalObject.transform.localScale = Vector3.zero;
         }
 
         private void FadeIn()
@@ -51,7 +55,7 @@ namespace Game.Scripts
             IEnumerator Do()
             {
                 yield return new WaitForSeconds(t);
-                sceneThreeSphere.transform.DOScale(FocusSphereScale, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
+                _sceneThreeSphere.transform.DOScale(FocusSphereScale, 0.15f).SetEase(Ease.Linear).OnComplete(() =>
                 {
                     AdditionalObjectFades(true);
                 });
@@ -62,12 +66,12 @@ namespace Game.Scripts
         {
             if (fadeSituation)
             {
-                additionalObject.transform.DOScale(Vector3.one*0.2f, 0.3f).SetEase(Ease.Flash).OnComplete(() =>
+                _additionalObject.transform.DOScale(Vector3.one*0.2f, 0.3f).SetEase(Ease.Flash).OnComplete(() =>
                 {
                     ButtonTrigger(true);
                 });
             }
-            else additionalObject.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.Flash);
+            else _additionalObject.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.Flash);
             
         }
 
@@ -79,17 +83,19 @@ namespace Game.Scripts
             }
             else
             {
-                _restartButtonTransform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.Linear).OnComplete(() =>
-                {
-                    // Load the first sceneS
-                    FadeOut();
-                });
+                SceneLoaderController.LoadScene(SceneName.Scene1.ToString(),SceneLoaderController.Scene1Loaded);
+                FadeOut();
             }
         }
 
         public static void FadeOut()
         {
-            
+            _restartButtonTransform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.Linear);
+            _sceneThreeSphere.transform.DOScale(Vector3.zero, 0.7f).SetEase(Ease.Linear);
+            _additionalObject.transform.DOScale(Vector3.zero, 0.7f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                SceneLoaderController.UnLoadScene(SceneName.Scene3.ToString(),SceneLoaderController.Scene3Loaded);
+            });
         }
         
     }
